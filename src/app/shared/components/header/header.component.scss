@@ -1,0 +1,21 @@
+@import "../../styles/variables";
+
+:host {
+  height: $header-height;
+  display: flex;
+  align-items: center;
+  padding: 0 $left-right-space;
+  box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
+
+  app-logo {
+    flex: 0 1 auto;
+  }
+
+  .center {
+    flex: 1 1 auto;
+  }
+
+  .actions {
+    flex: 0 1 auto;
+  }
+}

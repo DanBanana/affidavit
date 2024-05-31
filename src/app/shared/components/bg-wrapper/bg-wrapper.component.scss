@@ -1,0 +1,55 @@
+@import "../../styles/variables";
+
+.content {
+  position: fixed;
+  top: $header-height;
+  left: 0;
+  z-index: 0;
+  width: 100vw;
+  height: $content-height;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.background {
+  position: fixed;
+  top: $header-height;
+  left: 0;
+  z-index: -100;
+  width: 100vw;
+  height: $content-height;
+
+  .container {
+    position: absolute;
+    transform: rotate(-45deg);
+  }
+
+  .right {
+    left: 70vw;
+    top: 40vh;
+    width: 70vw;
+    height: 70vw;
+  }
+
+  .left {
+    left: -45vw;
+    top: -20vh;
+    width: 50vw;
+    height: 50vw;
+  }
+
+  .border {
+    border: 1px solid rgba(0, 124, 195, 0.2);
+    padding: 45px;
+    box-sizing: border-box;
+    display: grid;
+  }
+
+  .box {
+    background-color: rgba(0, 124, 195, 0.1);
+  }
+
+  .round {
+    border-radius: 45px;
+  }
+}

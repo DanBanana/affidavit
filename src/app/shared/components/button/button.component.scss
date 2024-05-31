@@ -1,0 +1,22 @@
+@import "../../styles/mixins.scss";
+@import "../../styles/variables";
+
+button {
+  @include reset-button;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1.5rem;
+  border-radius: $border-radius;
+}
+
+.primary {
+  background: $primary-color;
+  box-shadow: 0px 12px 23px rgba(55, 125, 255, 0.06);
+  color: white;
+}
+
+.secondary {
+  color: $primary-color;
+}

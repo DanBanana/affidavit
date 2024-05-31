@@ -1,0 +1,19 @@
+@import "../app/shared/styles/variables";
+
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+
+  app-header {
+    flex: 0 0 auto;
+  }
+
+  .content {
+    flex: 1 1 auto;
+    width: 100vw;
+    height: $content-height;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+}

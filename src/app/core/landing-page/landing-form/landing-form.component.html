@@ -1,0 +1,30 @@
+<div class="content">
+  <app-logo [logoOnly]="false"></app-logo>
+  <span>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa, ab officia!
+  </span>
+  <div class="fields">
+    <mat-form-field appearance="outline">
+      <mat-label>Select Document Type</mat-label>
+      <mat-select>
+        @for (item of docTypes; track $index) {
+        <mat-option [value]="item.val">{{ item.label }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Select Nearest Location</mat-label>
+      <mat-select>
+        @for (item of locations; track $index) {
+        <mat-option [value]="item.val">{{ item.label }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="actions">
+    <app-button>
+      Start
+      <app-icon [icon]="iconTypes.RIGHT_ARROW"></app-icon>
+    </app-button>
+  </div>
+</div>
