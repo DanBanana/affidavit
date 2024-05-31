@@ -239,6 +239,8 @@ $grey: #e1eefa;
     .image {
       width: 12rem;
       height: 8rem;
+      background-color: $grey;
+      border-radius: $border-radius;
     }
   }
 }
