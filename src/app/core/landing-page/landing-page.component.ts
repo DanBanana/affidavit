@@ -7,6 +7,7 @@ import {
 } from '../../shared/components';
 import { LandingFormComponent } from './landing-form/landing-form.component';
 import { IconType } from '../../shared/models/enums';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @Component({
   selector: 'app-landing-page',
@@ -17,6 +18,7 @@ import { IconType } from '../../shared/models/enums';
     ImportantPointComponent,
     LandingFormComponent,
     IconComponent,
+    MatExpansionModule,
   ],
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.scss',

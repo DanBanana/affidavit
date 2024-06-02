@@ -11,6 +11,7 @@ import { MatRippleModule } from '@angular/material/core';
 })
 export class ButtonComponent {
   private _secondary = false;
+  private _darkBg = false;
 
   get primary(): boolean {
     return !this._secondary;
@@ -22,6 +23,14 @@ export class ButtonComponent {
   }
   get secondary(): boolean {
     return this._secondary;
+  }
+
+  @Input()
+  set darkBg(value: boolean | string) {
+    this._darkBg = value !== null && `${value}` !== 'false';
+  }
+  get darkBg(): boolean {
+    return this._darkBg;
   }
 
   constructor() {}
