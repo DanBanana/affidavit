@@ -9,6 +9,8 @@
 
   app-logo {
     flex: 0 1 auto;
+    cursor: pointer;
+    border-radius: $border-radius;
   }
 
   .center {

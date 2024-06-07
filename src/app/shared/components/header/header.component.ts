@@ -4,6 +4,7 @@ import { ButtonComponent } from '../button/button.component';
 import { CommonModule } from '@angular/common';
 import { IconComponent } from '../icon/icon.component';
 import { IconType } from '../../models/enums';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -15,5 +16,11 @@ import { IconType } from '../../models/enums';
 export class HeaderComponent {
   get iconTypes(): typeof IconType {
     return IconType;
+  }
+
+  constructor(private router: Router) {}
+
+  navToHome(): void {
+    this.router.navigate(['home']);
   }
 }
