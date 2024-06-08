@@ -21,6 +21,10 @@ export class HeaderComponent {
   constructor(private router: Router) {}
 
   navToHome(): void {
-    this.router.navigate(['home']);
+    this.router.navigateByUrl('home');
+  }
+
+  navToLogin(): void {
+    this.router.navigateByUrl('auth/login');
   }
 }

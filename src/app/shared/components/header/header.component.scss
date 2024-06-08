@@ -19,5 +19,7 @@
 
   .actions {
     flex: 0 1 auto;
+    display: flex;
+    gap: 0.5rem;
   }
 }
