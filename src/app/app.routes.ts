@@ -7,10 +7,10 @@ import { NotFoundComponent } from './shared/components/not-found/not-found.compo
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', component: LandingPageComponent },
+  { path: 'home', title: 'Affidavit', component: LandingPageComponent },
   ...documentGeneratorRoutes,
   ...setAppointmentRoutes,
   ...authRoutes,
-  { path: 'not-found', component: NotFoundComponent },
+  { path: 'not-found', title: 'Not Found', component: NotFoundComponent },
   { path: '**', redirectTo: 'not-found', pathMatch: 'full' },
 ];
