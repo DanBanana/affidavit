@@ -1,7 +1,12 @@
-.logo-only {
-  margin-top: 6px;
-}
+:host {
+  display: grid;
+  place-items: center;
 
-.with-text {
-  margin-top: 10px;
+  .logo-only {
+    margin-top: 6px;
+  }
+
+  .with-text {
+    margin-top: 10px;
+  }
 }

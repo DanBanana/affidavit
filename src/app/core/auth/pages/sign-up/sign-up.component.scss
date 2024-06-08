@@ -1,0 +1,30 @@
+@import "../../../../shared/styles/variables";
+@import "../../../../shared/styles/mixins";
+
+.component-wrapper {
+  @include full-size-div;
+
+  display: grid;
+  place-items: center;
+  padding-bottom: $header-height;
+
+  .emphasized {
+    @include emphasized;
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: stretch;
+      gap: 1rem;
+
+      app-logo {
+        margin-bottom: 2rem;
+      }
+
+      .top-margin {
+        margin-top: 2rem;
+      }
+    }
+  }
+}

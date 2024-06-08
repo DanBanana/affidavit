@@ -1,1 +1,19 @@
-<p>login works!</p>
+<div class="component-wrapper">
+  <div class="emphasized">
+    <div class="content" [formGroup]="form">
+      <app-logo [logoOnly]="false"></app-logo>
+      <mat-form-field appearance="outline">
+        <mat-label>Username</mat-label>
+        <input matInput formControlName="username" />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" formControlName="password" />
+      </mat-form-field>
+      <app-button (click)="onSubmit()" class="top-margin">Login</app-button>
+      <app-button secondary (click)="navToSignUp()">
+        Don't have an account yet? Sign up now!
+      </app-button>
+    </div>
+  </div>
+</div>
