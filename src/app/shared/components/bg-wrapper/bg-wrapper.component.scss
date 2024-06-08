@@ -1,16 +1,5 @@
 @import "../../styles/variables";
 
-.content {
-  position: fixed;
-  top: $header-height;
-  left: 0;
-  z-index: 0;
-  width: 100vw;
-  height: $content-height;
-  overflow-x: hidden;
-  overflow-y: auto;
-}
-
 .background {
   position: fixed;
   top: $header-height;
