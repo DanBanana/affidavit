@@ -2,3 +2,9 @@
 <div class="content">
   <router-outlet />
 </div>
+
+@if(isLoading) {
+<div class="global-spinner">
+  <mat-spinner></mat-spinner>
+</div>
+}

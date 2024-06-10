@@ -1,9 +1,18 @@
-<app-logo [logoOnly]="false" (click)="navToHome()"></app-logo>
+<app-logo [logoOnly]="false" (click)="navigateToHome()"></app-logo>
 <div class="center"></div>
 <div class="actions">
-  <app-button secondary (click)="navToLogin()"> Login </app-button>
+  @if (!isLoggedIn) {
+  <app-button secondary (click)="navigateToLogin()"> Login </app-button>
   <app-button>
     <span>Get Started</span>
     <app-icon [icon]="iconTypes.RIGHT_ARROW"></app-icon>
   </app-button>
+  } @else {
+  <app-button [matMenuTriggerFor]="menu">
+    <span>{{ user.email }}</span>
+  </app-button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="signOut()">Logout</button>
+  </mat-menu>
+  }
 </div>

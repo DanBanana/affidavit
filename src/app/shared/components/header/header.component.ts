@@ -1,30 +1,53 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { LogoComponent } from '../logo/logo.component';
 import { ButtonComponent } from '../button/button.component';
 import { CommonModule } from '@angular/common';
 import { IconComponent } from '../icon/icon.component';
 import { IconType } from '../../models/enums';
-import { Router } from '@angular/router';
+import { AppStore, AuthService, NavigationService } from '../../services';
+import { MatMenuModule } from '@angular/material/menu';
+import { User } from '../../models/interfaces';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, LogoComponent, ButtonComponent, IconComponent],
+  imports: [
+    CommonModule,
+    MatMenuModule,
+    LogoComponent,
+    ButtonComponent,
+    IconComponent,
+  ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent {
+  private readonly store = inject(AppStore);
+
   get iconTypes(): typeof IconType {
     return IconType;
   }
 
-  constructor(private router: Router) {}
-
-  navToHome(): void {
-    this.router.navigateByUrl('home');
+  get isLoggedIn(): boolean {
+    return this.store.isLoggedIn();
   }
 
-  navToLogin(): void {
-    this.router.navigateByUrl('auth/login');
+  get user(): User {
+    return this.store.user()!;
+  }
+
+  constructor(private nav: NavigationService, private auth: AuthService) {}
+
+  navigateToHome(): void {
+    this.nav.navigateToHome();
+  }
+
+  navigateToLogin(): void {
+    this.nav.navigateToLogin();
+  }
+
+  async signOut(): Promise<void> {
+    await this.auth.signOut();
+    this.navigateToHome();
   }
 }
