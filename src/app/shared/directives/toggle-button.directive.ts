@@ -27,7 +27,8 @@ export class ToggleButtonDirective {
 
   constructor() {}
 
-  @HostListener('click') onClick() {
+  @HostListener('click', ['$event']) onClick(event: any) {
+    event.stopPropagation();
     this.toggleVal = !this.toggleVal;
   }
 }
