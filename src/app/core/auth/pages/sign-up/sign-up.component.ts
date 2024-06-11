@@ -1,10 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { ButtonComponent, LogoComponent } from '../../../../shared/components';
 import { MatInputModule } from '@angular/material/input';
 import { ToggleButtonDirective } from '../../../../shared/directives';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { AuthService } from '../../../../shared/services';
+import { LoginCredentials, User } from '../../../../shared/models/interfaces';
 
 @Component({
   selector: 'app-sign-up',
@@ -25,17 +32,32 @@ export class SignUpComponent implements OnInit {
   isPasswordVisible = false;
   form!: FormGroup;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private auth: AuthService) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      username: '',
-      password: '',
+      id: ['', Validators.required],
+      password: ['', Validators.required],
+      fname: ['', Validators.required],
+      lname: ['', Validators.required],
     });
   }
 
-  onSubmit(): void {
-    // TODO: call register api
-    console.log(this.form.getRawValue());
+  async onSubmit(): Promise<void> {
+    try {
+      const formVal: LoginCredentials & User = this.form.getRawValue();
+      await this.auth.createUserWithEmailAndPassword(
+        {
+          id: formVal.id,
+          password: formVal.password,
+        },
+        {
+          fname: formVal.fname,
+          lname: formVal.lname,
+        }
+      );
+    } catch (e) {
+      console.error(e);
+    }
   }
 }

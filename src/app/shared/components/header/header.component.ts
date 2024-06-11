@@ -7,6 +7,7 @@ import { IconType } from '../../models/enums';
 import { AppStore, AuthService, NavigationService } from '../../services';
 import { MatMenuModule } from '@angular/material/menu';
 import { User } from '../../models/interfaces';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-header',
@@ -14,6 +15,7 @@ import { User } from '../../models/interfaces';
   imports: [
     CommonModule,
     MatMenuModule,
+    MatIconModule,
     LogoComponent,
     ButtonComponent,
     IconComponent,
@@ -47,7 +49,11 @@ export class HeaderComponent {
   }
 
   async signOut(): Promise<void> {
-    await this.auth.signOut();
-    this.navigateToHome();
+    try {
+      await this.auth.signOut();
+      this.navigateToHome();
+    } catch (e) {
+      console.error(e);
+    }
   }
 }

@@ -7,8 +7,6 @@ import { BgWrapperComponent } from '../../shared/components';
   standalone: true,
   imports: [RouterOutlet, BgWrapperComponent],
   templateUrl: './auth.component.html',
-  styleUrl: './auth.component.scss'
+  styleUrl: './auth.component.scss',
 })
-export class AuthComponent {
-
-}
+export class AuthComponent {}

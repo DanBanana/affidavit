@@ -21,5 +21,7 @@ export class AppComponent {
   /**
    * @param auth Need to inject `AuthService` to trigger `onAuthStateChanged` method.
    */
-  constructor(private auth: AuthService) {}
+  constructor(auth: AuthService) {
+    auth.onAuthStateChanged();
+  }
 }

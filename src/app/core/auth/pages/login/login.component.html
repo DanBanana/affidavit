@@ -1,6 +1,6 @@
 <div class="component-wrapper">
   <div class="emphasized">
-    <div class="content" [formGroup]="form">
+    <form class="content" [formGroup]="form" (submit)="onSubmit()">
       <app-logo [logoOnly]="false"></app-logo>
       <mat-form-field appearance="outline">
         <mat-label>Username</mat-label>
@@ -28,6 +28,6 @@
       <app-button secondary (click)="navToSignUp()">
         Don't have an account yet? Sign up now!
       </app-button>
-    </div>
+    </form>
   </div>
 </div>

@@ -44,7 +44,6 @@ export class LoginComponent implements OnInit {
     try {
       const formVal: LoginCredentials = this.form.getRawValue();
       await this.auth.signInWithEmailAndPassword(formVal);
-      this.nav.navigateToHome();
     } catch (e) {
       console.error(e);
       // TODO: notify user of login fail

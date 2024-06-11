@@ -1,10 +1,18 @@
 <div class="component-wrapper">
   <div class="emphasized">
-    <div class="content" [formGroup]="form">
+    <form class="content" [formGroup]="form" (submit)="onSubmit()">
       <app-logo [logoOnly]="false"></app-logo>
       <mat-form-field appearance="outline">
+        <mat-label>First Name</mat-label>
+        <input matInput formControlName="fname" />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Last Name</mat-label>
+        <input matInput formControlName="lname" />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
         <mat-label>Username</mat-label>
-        <input matInput formControlName="username" />
+        <input matInput formControlName="id" />
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>Password</mat-label>
@@ -25,6 +33,6 @@
         </button>
       </mat-form-field>
       <app-button (click)="onSubmit()" class="top-margin">Sign Up</app-button>
-    </div>
+    </form>
   </div>
 </div>
