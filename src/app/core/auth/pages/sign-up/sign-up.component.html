@@ -8,7 +8,21 @@
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>Password</mat-label>
-        <input matInput type="password" formControlName="password" />
+        <input
+          matInput
+          [type]="isPasswordVisible ? 'text' : 'password'"
+          formControlName="password"
+        />
+        <button
+          mat-icon-button
+          matSuffix
+          toggle-button
+          [(toggleVal)]="isPasswordVisible"
+        >
+          <mat-icon>
+            {{ isPasswordVisible ? "visibility" : "visibility_off" }}
+          </mat-icon>
+        </button>
       </mat-form-field>
       <app-button (click)="onSubmit()" class="top-margin">Sign Up</app-button>
     </div>

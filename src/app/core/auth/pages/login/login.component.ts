@@ -1,23 +1,30 @@
 import { Component, OnInit } from '@angular/core';
 import { ButtonComponent, LogoComponent } from '../../../../shared/components';
-import { MatInputModule } from '@angular/material/input';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AuthService, NavigationService } from '../../../../shared/services';
 import { LoginCredentials } from '../../../../shared/models/interfaces';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { ToggleButtonDirective } from '../../../../shared/directives';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    LogoComponent,
     MatInputModule,
+    MatIconModule,
+    MatButtonModule,
+    LogoComponent,
     ButtonComponent,
+    ToggleButtonDirective,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
 export class LoginComponent implements OnInit {
+  isPasswordVisible = false;
   form!: FormGroup;
 
   constructor(
