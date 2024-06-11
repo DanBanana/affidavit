@@ -76,13 +76,13 @@ export class AuthService {
         id,
         password
       );
+      this.nav.navigateToHome();
       await this.db.createUser(userCred.user.uid, {
         fname,
         lname,
         email: id,
         role: UserRole.GUEST,
       });
-      this.nav.navigateToHome();
     } catch (e) {
       this.setAuthLoading(false);
       throw e;
