@@ -33,5 +33,7 @@ export class ButtonComponent {
     return this._darkBg;
   }
 
+  @Input() type: 'button' | 'reset' | 'submit' = 'button';
+
   constructor() {}
 }

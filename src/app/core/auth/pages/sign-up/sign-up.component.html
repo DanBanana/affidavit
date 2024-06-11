@@ -1,6 +1,6 @@
 <div class="component-wrapper">
   <div class="emphasized">
-    <form class="content" [formGroup]="form" (submit)="onSubmit()">
+    <form class="content" [formGroup]="form">
       <app-logo [logoOnly]="false"></app-logo>
       <mat-form-field appearance="outline">
         <mat-label>First Name</mat-label>
@@ -33,7 +33,9 @@
           </mat-icon>
         </button>
       </mat-form-field>
-      <app-button (click)="onSubmit()" class="top-margin">Sign Up</app-button>
+      <app-button (click)="onSubmit()" class="top-margin" type="submit">
+        Sign Up
+      </app-button>
     </form>
   </div>
 </div>
