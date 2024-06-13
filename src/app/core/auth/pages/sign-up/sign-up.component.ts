@@ -12,6 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from '../../../../shared/services';
 import { LoginCredentials, User } from '../../../../shared/models/interfaces';
+import { LoginWithProvidersComponent } from '../../components/login-with-providers/login-with-providers.component';
 
 @Component({
   selector: 'app-sign-up',
@@ -21,9 +22,10 @@ import { LoginCredentials, User } from '../../../../shared/models/interfaces';
     MatInputModule,
     MatIconModule,
     MatButtonModule,
+    ToggleButtonDirective,
     LogoComponent,
     ButtonComponent,
-    ToggleButtonDirective,
+    LoginWithProvidersComponent,
   ],
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.scss',
@@ -36,7 +38,7 @@ export class SignUpComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      id: ['', Validators.required],
+      id: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
       fname: ['', Validators.required],
       lname: ['', Validators.required],

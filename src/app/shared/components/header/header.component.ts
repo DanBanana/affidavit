@@ -38,6 +38,15 @@ export class HeaderComponent {
     return this.store.user()!;
   }
 
+  get displayName(): string {
+    const user = this.user;
+    const fname = user.fname;
+    const lname = user.lname;
+    if (fname || lname)
+      return `${this.user.fname}${fname && lname ? ' ' : ''}${this.user.lname}`;
+    return user.displayName!;
+  }
+
   constructor(private nav: NavigationService, private auth: AuthService) {}
 
   navigateToHome(): void {

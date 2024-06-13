@@ -3,8 +3,8 @@
     <form class="content" [formGroup]="form">
       <app-logo [logoOnly]="false"></app-logo>
       <mat-form-field appearance="outline">
-        <mat-label>Username</mat-label>
-        <input matInput formControlName="id" />
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="id" type="email"/>
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>Password</mat-label>
@@ -25,12 +25,11 @@
           </mat-icon>
         </button>
       </mat-form-field>
-      <app-button (click)="onSubmit()" class="top-margin" type="submit">
-        Login
-      </app-button>
+      <app-button (click)="onSubmit()" type="submit"> Login </app-button>
       <app-button secondary (click)="navToSignUp()">
         Don't have an account yet? Sign up now!
       </app-button>
+      <app-login-with-providers></app-login-with-providers>
     </form>
   </div>
 </div>

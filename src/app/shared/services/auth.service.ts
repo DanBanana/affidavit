@@ -8,6 +8,8 @@ import {
   signInWithEmailAndPassword,
   onAuthStateChanged,
   createUserWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
 } from '@angular/fire/auth';
 import { UserRole } from '../models/enums';
 
@@ -15,7 +17,7 @@ import { UserRole } from '../models/enums';
 export class AuthService {
   private readonly store = inject(AppStore);
   private readonly auth = inject(Auth);
-
+  private readonly googleAuth = new GoogleAuthProvider();
   private userDocUnsub: Unsubscribe | null = null;
 
   constructor(private db: DatabaseService, private nav: NavigationService) {}
@@ -36,6 +38,7 @@ export class AuthService {
         this.setUser({
           id: user?.uid!,
           email: user?.email!,
+          displayName: docData['displayName'],
           fname: docData['fname'],
           lname: docData['lname'],
           role: docData['role'],
@@ -101,6 +104,23 @@ export class AuthService {
       this.nav.navigateToHome();
     } catch (e) {
       this.setAuthLoading(false);
+      throw e;
+    }
+  }
+
+  /**
+   * Login through Google authentication.
+   */
+  async signInWithGooglePopup(): Promise<void> {
+    try {
+      const userCred = await signInWithPopup(this.auth, this.googleAuth);
+      this.nav.navigateToHome();
+      await this.db.createUserAfterGoogleLogin(userCred.user.uid, {
+        displayName: userCred.user.displayName!,
+        email: userCred.user.email!,
+        role: UserRole.GUEST,
+      });
+    } catch (e) {
       throw e;
     }
   }

@@ -18,12 +18,15 @@
       align-items: stretch;
       gap: 1rem;
 
-      app-logo {
-        margin: 0 3rem 2rem 3rem;
+      .name {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
       }
 
-      .top-margin {
-        margin-top: 2rem;
+      app-logo {
+        margin: 0 3rem 1rem 3rem;
       }
     }
   }

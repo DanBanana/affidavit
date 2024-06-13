@@ -1,0 +1,28 @@
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+
+  color: rgb(77, 77, 77);
+  font-size: 0.9rem;
+
+  .button {
+    $size: 40px;
+
+    width: $size;
+    width: $size;
+    border-radius: $size;
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
+    display: grid;
+    place-items: center;
+
+    img {
+      width: $size;
+      width: $size;
+      border-radius: $size;
+    }
+  }
+}

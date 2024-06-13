@@ -10,7 +10,7 @@
   } @else {
   <app-button [matMenuTriggerFor]="menu">
     <mat-icon>account_circle</mat-icon>
-    <span>{{ user.fname }}</span>
+    <span>{{ displayName }}</span>
   </app-button>
   <mat-menu #menu="matMenu">
     <button mat-menu-item (click)="signOut()">Logout</button>

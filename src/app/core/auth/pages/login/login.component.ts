@@ -1,12 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { ButtonComponent, LogoComponent } from '../../../../shared/components';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { AuthService, NavigationService } from '../../../../shared/services';
 import { LoginCredentials } from '../../../../shared/models/interfaces';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { ToggleButtonDirective } from '../../../../shared/directives';
+import { LoginWithProvidersComponent } from '../../components/login-with-providers/login-with-providers.component';
 
 @Component({
   selector: 'app-login',
@@ -16,9 +22,10 @@ import { ToggleButtonDirective } from '../../../../shared/directives';
     MatInputModule,
     MatIconModule,
     MatButtonModule,
+    ToggleButtonDirective,
     LogoComponent,
     ButtonComponent,
-    ToggleButtonDirective,
+    LoginWithProvidersComponent,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
@@ -34,9 +41,9 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.form = this.fb.group<LoginCredentials>({
-      id: '',
-      password: '',
+    this.form = this.fb.group({
+      id: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required],
     });
   }
 
