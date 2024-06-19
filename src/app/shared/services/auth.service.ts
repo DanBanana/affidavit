@@ -28,11 +28,11 @@ export class AuthService {
    */
   onAuthStateChanged(): void {
     onAuthStateChanged(this.auth, (user) => {
-      this.setAuthLoading(true);
+      this.setGlobalLoading(true);
       if (this.userDocUnsub) this.userDocUnsub();
-      if (user == null || user == undefined) return this.setAuthLoading(false);
+      if (user == null || user == undefined) return this.setGlobalLoading(false);
       this.userDocUnsub = this.db.onUserSnapshot(user?.uid, (doc) => {
-        this.setAuthLoading(false);
+        this.setGlobalLoading(false);
         if (!doc.exists()) return;
         const docData = doc.data()!;
         this.setUser({
@@ -54,7 +54,7 @@ export class AuthService {
    */
   async signOut(): Promise<void> {
     try {
-      this.setAuthLoading(true);
+      this.setGlobalLoading(true);
       await signOut(this.auth);
       this.setUser(null);
       if (this.userDocUnsub) this.userDocUnsub();
@@ -73,7 +73,7 @@ export class AuthService {
     { fname, lname }: Partial<User>
   ): Promise<void> {
     try {
-      this.setAuthLoading(true);
+      this.setGlobalLoading(true);
       const userCred = await createUserWithEmailAndPassword(
         this.auth,
         id,
@@ -87,7 +87,7 @@ export class AuthService {
         role: UserRole.GUEST,
       });
     } catch (e) {
-      this.setAuthLoading(false);
+      this.setGlobalLoading(false);
       throw e;
     }
   }
@@ -99,11 +99,11 @@ export class AuthService {
    */
   async signInWithEmailAndPassword(cred: LoginCredentials): Promise<void> {
     try {
-      this.setAuthLoading(true);
+      this.setGlobalLoading(true);
       await signInWithEmailAndPassword(this.auth, cred.id, cred.password);
       this.nav.navigateToHome();
     } catch (e) {
-      this.setAuthLoading(false);
+      this.setGlobalLoading(false);
       throw e;
     }
   }
@@ -129,7 +129,7 @@ export class AuthService {
     this.store.setUser(user);
   }
 
-  private setAuthLoading(authLoading: boolean): void {
-    this.store.setAuthLoading(authLoading);
+  private setGlobalLoading(globalLoading: boolean): void {
+    this.store.setGlobalLoading(globalLoading);
   }
 }

@@ -12,7 +12,7 @@ export const AppStore = signalStore(
   { providedIn: 'root' },
   withState<AppState>({
     user: null,
-    authLoading: false,
+    globalLoading: false,
   }),
   withComputed((store) => ({
     isLoggedIn: computed(() => store.user() != null),
@@ -21,8 +21,8 @@ export const AppStore = signalStore(
     setUser(user: User | null) {
       patchState(store, { user });
     },
-    setAuthLoading(authLoading: boolean) {
-      patchState(store, { authLoading });
+    setGlobalLoading(globalLoading: boolean) {
+      patchState(store, { globalLoading });
     },
   }))
 );

@@ -16,4 +16,8 @@ export class NavigationService {
   navigateToSignUp(): void {
     this.router.navigateByUrl('auth/sign-up');
   }
+
+  navigateToDocumentGenerator(): void {
+    this.router.navigateByUrl('document-generator');
+  }
 }

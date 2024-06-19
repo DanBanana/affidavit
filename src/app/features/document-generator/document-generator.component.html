@@ -1,3 +1,18 @@
 <app-bg-wrapper>
-  <p>document-generator works!</p>
+  <div class="wrapper">
+    <div class="inputs">
+      <app-affidavit-of-loss-fields
+        [formVal]="formVal"
+      ></app-affidavit-of-loss-fields>
+      <button (click)="generatePDF()">Generate</button>
+    </div>
+    <div class="view" #view>
+      <div class="pages-wrapper" #pagesWrapper [style.transform]="scale">
+        <app-affidavit-of-loss
+          #generator
+          [formVal]="formVal"
+        ></app-affidavit-of-loss>
+      </div>
+    </div>
+  </div>
 </app-bg-wrapper>

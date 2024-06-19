@@ -9,6 +9,7 @@ import {
 } from '../../../shared/components';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
+import { NavigationService } from '../../../shared/services';
 
 @Component({
   selector: 'app-landing-form',
@@ -42,12 +43,16 @@ export class LandingFormComponent implements OnInit {
     return IconType;
   }
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private nav: NavigationService) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
       docType: '',
       nearestLoc: '',
     });
+  }
+
+  navigateToDocumentGenerator(): void {
+    this.nav.navigateToDocumentGenerator();
   }
 }

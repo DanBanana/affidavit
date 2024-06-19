@@ -1,0 +1,33 @@
+@import "../../shared/styles/variables";
+@import "../../shared/styles/mixins";
+
+.wrapper {
+  @include full-size-div;
+  max-height: $content-height;
+  padding: 1rem $left-right-space;
+  overflow: hidden;
+
+  display: flex;
+  gap: 2rem;
+
+  .inputs {
+    flex: 2 2 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    gap: 1rem;
+  }
+
+  .view {
+    flex: 5 5 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    .pages-wrapper {
+      transform-origin: left top;
+      height: 100%;
+    }
+  }
+}

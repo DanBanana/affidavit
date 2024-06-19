@@ -15,7 +15,7 @@ export class AppComponent {
   private readonly store = inject(AppStore);
 
   get isLoading(): boolean {
-    return this.store.authLoading();
+    return this.store.globalLoading();
   }
 
   /**
