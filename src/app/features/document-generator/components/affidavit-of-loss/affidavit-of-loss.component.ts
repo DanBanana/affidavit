@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { BaseDocGenerator } from '../../models/base-doc-generator';
 import { CommonModule } from '@angular/common';
 
@@ -12,14 +12,22 @@ import jsPDF from 'jspdf';
   templateUrl: './affidavit-of-loss.component.html',
   styleUrl: './affidavit-of-loss.component.scss',
 })
-export class AffidavitOfLossComponent extends BaseDocGenerator {
+export class AffidavitOfLossComponent
+  extends BaseDocGenerator
+  implements AfterViewInit
+{
   pageWidth = 210;
   pageHeight = 297;
   pagePadding = 24.4;
   pageFontSize = 5.64;
 
+  @ViewChild('wrapper') wrapper!: ElementRef;
   constructor() {
     super();
+  }
+
+  ngAfterViewInit(): void {
+    this.widthReady.emit(this.wrapper.nativeElement.offsetWidth);
   }
 
   override generatePDF(): void {

@@ -1,9 +1,9 @@
 import {
-  AfterViewInit,
   ChangeDetectorRef,
   Component,
   EffectRef,
   ElementRef,
+  HostListener,
   OnDestroy,
   ViewChild,
   inject,
@@ -29,23 +29,18 @@ import {
   templateUrl: './document-generator.component.html',
   styleUrl: './document-generator.component.scss',
 })
-export class DocumentGeneratorComponent implements AfterViewInit, OnDestroy {
+export class DocumentGeneratorComponent implements OnDestroy {
   readonly effects: EffectRef[] = [];
   readonly formVal = signal<unknown>({});
 
   scale: string = 'scale(1)';
 
   private readonly store = inject(AppStore);
+  private pageWith!: number;
 
   @ViewChild('view') view!: ElementRef;
-  @ViewChild('pagesWrapper') pagesWrapper!: ElementRef;
   @ViewChild('generator') generator!: BaseDocGenerator;
   constructor(private cdr: ChangeDetectorRef) {}
-
-  ngAfterViewInit(): void {
-    this.scaleChildToFitParent();
-    this.cdr.detectChanges();
-  }
 
   ngOnDestroy(): void {
     this.effects.forEach((item) => item.destroy());
@@ -58,10 +53,15 @@ export class DocumentGeneratorComponent implements AfterViewInit, OnDestroy {
     this.store.setGlobalLoading(false);
   }
 
-  private scaleChildToFitParent() {
+  scaleChildToFitParent(width?: number) {
+    this.pageWith = width || this.pageWith;
+    if (!this.pageWith) return;
     const parentWidth = this.view.nativeElement?.offsetWidth;
-    const childWidth = this.pagesWrapper.nativeElement?.offsetWidth;
-    const scaleFactor = parentWidth / childWidth;
-    this.scale = `scale(${scaleFactor || 1})`;
+    this.scale = `scale(${parentWidth / this.pageWith || 1})`;
+  }
+
+  @HostListener('window:resize', ['$event'])
+  private handleResize(): void {
+    this.scaleChildToFitParent();
   }
 }

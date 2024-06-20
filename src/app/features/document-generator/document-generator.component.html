@@ -7,10 +7,11 @@
       <button (click)="generatePDF()">Generate</button>
     </div>
     <div class="view" #view>
-      <div class="pages-wrapper" #pagesWrapper [style.transform]="scale">
+      <div class="scalable" [style.transform]="scale">
         <app-affidavit-of-loss
           #generator
           [formVal]="formVal"
+          (widthReady)="scaleChildToFitParent($event)"
         ></app-affidavit-of-loss>
       </div>
     </div>
