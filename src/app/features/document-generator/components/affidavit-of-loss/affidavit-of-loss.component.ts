@@ -16,12 +16,8 @@ export class AffidavitOfLossComponent
   extends BaseDocGenerator
   implements AfterViewInit
 {
-  pageWidth = 210;
-  pageHeight = 297;
-  pagePadding = 24.4;
-  pageFontSize = 5.64;
-
   @ViewChild('wrapper') wrapper!: ElementRef;
+  @ViewChild('content') content!: ElementRef;
   constructor() {
     super();
   }
@@ -30,8 +26,14 @@ export class AffidavitOfLossComponent
     this.widthReady.emit(this.wrapper.nativeElement.offsetWidth);
   }
 
-  override generatePDF(): void {
-    const doc = new jsPDF('p', 'px', 'a4');
-    setTimeout(() => this.completed.emit(), 1000);
+  override async generatePDF(): Promise<void> {
+    const pdf = new jsPDF('p', 'mm', 'a4');
+
+    const canvas = await html2canvas(this.content.nativeElement);
+    const contentDataURL = canvas.toDataURL('image/png');
+    pdf.addImage(contentDataURL, 'PNG', 0, 0, this.pageWidth, this.pageHeight);
+    pdf.save('MYPdf.pdf');
+
+    this.completed.emit();
   }
 }

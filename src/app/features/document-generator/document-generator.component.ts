@@ -1,5 +1,4 @@
 import {
-  ChangeDetectorRef,
   Component,
   EffectRef,
   ElementRef,
@@ -40,7 +39,7 @@ export class DocumentGeneratorComponent implements OnDestroy {
 
   @ViewChild('view') view!: ElementRef;
   @ViewChild('generator') generator!: BaseDocGenerator;
-  constructor(private cdr: ChangeDetectorRef) {}
+  constructor() {}
 
   ngOnDestroy(): void {
     this.effects.forEach((item) => item.destroy());
@@ -48,9 +47,16 @@ export class DocumentGeneratorComponent implements OnDestroy {
 
   async generatePDF(): Promise<void> {
     this.store.setGlobalLoading(true);
-    this.generator.generatePDF();
-    await firstValueFrom(this.generator.completed);
+    this.scale = 'scale(1)';
+    await new Promise<void>((resolve) => {
+      setTimeout(async () => {
+        this.generator.generatePDF();
+        await firstValueFrom(this.generator.completed);
+        resolve();
+      });
+    });
     this.store.setGlobalLoading(false);
+    this.scaleChildToFitParent();
   }
 
   scaleChildToFitParent(width?: number) {
