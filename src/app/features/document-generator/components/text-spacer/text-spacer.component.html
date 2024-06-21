@@ -4,7 +4,7 @@
   [ngClass]="{ isSelected: isSelected }"
   [style.width.pt]="width"
 >
-  @if (field) {
+  @if (field !== "empty") {
   {{ displayField || "." }}
   } @else {
   <ng-content></ng-content>
