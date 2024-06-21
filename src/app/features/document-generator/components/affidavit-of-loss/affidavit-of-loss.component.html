@@ -1,30 +1,23 @@
 <app-document-wrapper #document>
   <div class="top subtext left">
-    <span class="inline-block" [style.width.pt]="135">
+    <app-text-spacer [width]="135" textAlign="left">
       Republic of the Philippines
-    </span>
+    </app-text-spacer>
     &#125;
   </div>
   <div class="top subtext left">
-    <span class="inline-block" [style.width.pt]="135">
-      {{ data.location || "[Location]" }}
-    </span>
+    <app-text-spacer [width]="135" textAlign="left" field="location">
+    </app-text-spacer>
     &#125;&nbsp;s.s.
   </div>
   <h1 class="header center">Affidavit of Loss</h1>
   <p class="body justify">
-    <span class="inline-block center" [style.width.pt]="25"></span> I,
-    <span class="inline-block center" [style.width.pt]="120">
-      {{ data.affiantName || "[Name]" }}
-    </span>
+    <app-text-spacer [width]="25"></app-text-spacer> I,
+    <app-text-spacer [width]="130" field="affiantName"></app-text-spacer>
     , of legal age,
-    <span class="inline-block center" [style.width.pt]="80">
-      {{ data.civilStatus || "[Civil status]" }}
-    </span>
+    <app-text-spacer [width]="70" field="civilStatus"></app-text-spacer>
     , Filipino and with principal or residential address at
-    <span class="inline-block center" [style.width.pt]="200">
-      {{ data.address || "[Address]" }}
-    </span>
+    <app-text-spacer [width]="200" field="address"></app-text-spacer>
     , after being duly sworn to in accordance with law, hereby depose and say
     that:
   </p>
@@ -50,8 +43,8 @@
     </li>
   </ol>
   <p class="body justify">
-    <span class="inline-block center" [style.width.pt]="25"></span> IN WITNESS
-    WHEREOF, I hereby affix my signature on ________________________ at Quezon
-    City, Philippines.
+    <app-text-spacer [width]="25"></app-text-spacer> IN WITNESS WHEREOF, I
+    hereby affix my signature on ________________________ at Quezon City,
+    Philippines.
   </p>
 </app-document-wrapper>

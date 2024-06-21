@@ -1,16 +1,13 @@
 <app-bg-wrapper>
   <div class="wrapper">
     <div class="inputs">
-      <app-affidavit-of-loss-fields
-        [formVal]="formVal"
-      ></app-affidavit-of-loss-fields>
+      <app-affidavit-of-loss-fields></app-affidavit-of-loss-fields>
       <button (click)="generatePDF()">Generate</button>
     </div>
     <div class="view" #view>
       <div class="scalable" [style.transform]="scale">
         <app-affidavit-of-loss
           #generator
-          [formVal]="formVal"
           (widthReady)="scaleChildToFitParent($event)"
         ></app-affidavit-of-loss>
       </div>

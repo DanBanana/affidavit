@@ -1,17 +1,16 @@
 import {
+  ChangeDetectorRef,
   Component,
-  EffectRef,
   ElementRef,
   HostListener,
-  OnDestroy,
   ViewChild,
   inject,
-  signal,
 } from '@angular/core';
 import { BgWrapperComponent } from '../../shared/components';
 import { AppStore } from '../../shared/services';
 import { firstValueFrom } from 'rxjs';
 import { BaseDocGenerator } from './models';
+import { DocumentGeneratorStore } from './document-generator-store';
 import {
   AffidavitOfLossComponent,
   AffidavitOfLossFieldsComponent,
@@ -25,27 +24,23 @@ import {
     AffidavitOfLossComponent,
     AffidavitOfLossFieldsComponent,
   ],
+  providers: [DocumentGeneratorStore],
   templateUrl: './document-generator.component.html',
   styleUrl: './document-generator.component.scss',
 })
-export class DocumentGeneratorComponent implements OnDestroy {
-  readonly effects: EffectRef[] = [];
-  readonly formVal = signal<unknown>({});
-
+export class DocumentGeneratorComponent {
   scale: string = 'scale(1)';
 
   private readonly store = inject(AppStore);
+  private readonly generatorStore = inject(DocumentGeneratorStore);
   private pageWith!: number;
 
   @ViewChild('view') view!: ElementRef;
   @ViewChild('generator') generator!: BaseDocGenerator;
-  constructor() {}
-
-  ngOnDestroy(): void {
-    this.effects.forEach((item) => item.destroy());
-  }
+  constructor(private cd: ChangeDetectorRef) {}
 
   async generatePDF(): Promise<void> {
+    this.generatorStore.setCurrentField();
     this.store.setGlobalLoading(true);
     this.scale = 'scale(1)';
     await new Promise<void>((resolve) => {
@@ -64,6 +59,7 @@ export class DocumentGeneratorComponent implements OnDestroy {
     if (!this.pageWith) return;
     const parentWidth = this.view.nativeElement?.offsetWidth;
     this.scale = `scale(${parentWidth / this.pageWith || 1})`;
+    this.cd.detectChanges();
   }
 
   @HostListener('window:resize', ['$event'])
