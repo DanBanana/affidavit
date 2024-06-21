@@ -1,14 +1,18 @@
 <form [formGroup]="form">
   <mat-form-field appearance="outline">
-    <mat-label>Field 1</mat-label>
-    <input matInput formControlName="f1" />
+    <mat-label>City/Municipality</mat-label>
+    <input matInput formControlName="location" />
   </mat-form-field>
   <mat-form-field appearance="outline">
-    <mat-label>Field 2</mat-label>
-    <input matInput formControlName="f2" />
+    <mat-label>Name of the Affiant</mat-label>
+    <input matInput formControlName="affiantName" />
   </mat-form-field>
   <mat-form-field appearance="outline">
-    <mat-label>Field 3</mat-label>
-    <input matInput formControlName="f3" />
+    <mat-label>Civil Status</mat-label>
+    <input matInput formControlName="civilStatus" />
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Address</mat-label>
+    <input matInput formControlName="address" />
   </mat-form-field>
 </form>

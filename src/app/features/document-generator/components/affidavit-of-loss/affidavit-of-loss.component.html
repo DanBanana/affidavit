@@ -1,1 +1,57 @@
-<app-document-wrapper #document> {{ formVal() | json }}</app-document-wrapper>
+<app-document-wrapper #document>
+  <div class="top subtext left">
+    <span class="inline-block" [style.width.pt]="135">
+      Republic of the Philippines
+    </span>
+    &#125;
+  </div>
+  <div class="top subtext left">
+    <span class="inline-block" [style.width.pt]="135">
+      {{ data.location || "[Location]" }}
+    </span>
+    &#125;&nbsp;s.s.
+  </div>
+  <h1 class="header center">Affidavit of Loss</h1>
+  <p class="body justify">
+    <span class="inline-block center" [style.width.pt]="25"></span> I,
+    <span class="inline-block center" [style.width.pt]="120">
+      {{ data.affiantName || "[Name]" }}
+    </span>
+    , of legal age,
+    <span class="inline-block center" [style.width.pt]="80">
+      {{ data.civilStatus || "[Civil status]" }}
+    </span>
+    , Filipino and with principal or residential address at
+    <span class="inline-block center" [style.width.pt]="200">
+      {{ data.address || "[Address]" }}
+    </span>
+    , after being duly sworn to in accordance with law, hereby depose and say
+    that:
+  </p>
+  <ol>
+    <li class="body justify">
+      I am the owner of a ______________ with reference number of
+      ______________.
+    </li>
+    <br />
+    <li class="body justify">
+      On ______________, I found out that I lost my _________________ based on
+      the situation and circumstances narrated below:
+    </li>
+    <br />
+    <li class="body justify">
+      Despite my diligent and best efforts, I was no longer able to locate the
+      same. Thus, the said item is now irretrievably loss.
+    </li>
+    <br />
+    <li class="body justify">
+      I hereby execute this affidavit to attest to the foregoing facts and for
+      whatever legal purpose it may serve.
+    </li>
+  </ol>
+  <p class="body justify">
+    <span class="inline-block center" [style.width.pt]="25"></span> IN WITNESS
+    WHEREOF, I hereby affix my signature on ________________________ at Quezon
+    City, Philippines.
+  </p>
+</app-document-wrapper>

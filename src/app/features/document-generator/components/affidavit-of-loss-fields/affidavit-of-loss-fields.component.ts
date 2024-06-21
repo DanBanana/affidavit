@@ -21,9 +21,10 @@ export class AffidavitOfLossFieldsComponent
   ngOnInit(): void {
     this.initForm(
       this.fb.group({
-        f1: 'f1',
-        f2: 'f2',
-        f3: 'f3',
+        location: 'Cebu City',
+        affiantName: '',
+        civilStatus: '',
+        address: '',
       })
     );
   }

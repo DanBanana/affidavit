@@ -1,45 +1,5 @@
-.wrapper {
-  display: grid;
-  place-items: center;
-  padding: 1rem 0;
-  width: 880px;
+@import "../../../../shared/styles/mixins";
 
-  .page {
-    width: 210mm;
-    height: 297mm;
-    background-color: white;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-
-    .content {
-      width: 210mm;
-      height: 297mm;
-      padding: 38.1mm 25.4mm 38.1mm 38.1mm;
-      box-sizing: border-box;
-      font-family: "Times New Roman", Times, serif;
-
-      .header {
-        font-size: 20pt;
-      }
-
-      .body {
-        font-size: 14pt;
-      }
-
-      .subtext {
-        font-size: 10pt;
-      }
-
-      .left {
-        text-align: left;
-      }
-
-      .center {
-        text-align: center;
-      }
-
-      .justify {
-        text-align: justify;
-      }
-    }
-  }
+:host {
+  @include document;
 }
