@@ -1,0 +1,12 @@
+<span
+  class="inline-block"
+  [style.text-align]="textAlign"
+  [ngClass]="{ isSelected: isSelected }"
+  [style.width.pt]="width"
+>
+  @if (field) {
+  {{ displayField || "." }}
+  } @else {
+  <ng-content></ng-content>
+  }
+</span>
