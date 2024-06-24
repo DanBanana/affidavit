@@ -12,22 +12,43 @@ button {
   border-radius: $border-radius;
 
   width: 100%;
+
+  &.disabled {
+    cursor: default;
+  }
 }
 
 .primary {
-  background: $primary-color;
+  background-color: $primary-color;
   color: white;
+
+  &.disabled {
+    background-color: grey !important;
+  }
 
   &.darkBg {
     border: 1px solid white;
     box-sizing: border-box;
+
+    &.disabled {
+      border: 1px solid grey;
+      color: grey;
+    }
   }
 }
 
 .secondary {
   color: $primary-color;
 
+  &.disabled {
+    color: grey;
+  }
+
   &.darkBg {
     color: white !important;
+
+    &.disabled {
+      color: grey !important;
+    }
   }
 }

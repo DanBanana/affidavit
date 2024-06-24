@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output, output } from '@angular/core';
 import { MatRippleModule } from '@angular/material/core';
 
 @Component({
@@ -35,5 +35,14 @@ export class ButtonComponent {
 
   @Input() type: 'button' | 'reset' | 'submit' = 'button';
 
+  @Input() disabled = false;
+
+  @Output() click = new EventEmitter<void>();
+
   constructor() {}
+
+  onClick(): void {
+    if (this.disabled) return;
+    this.click.emit();
+  }
 }
