@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseDocFields } from '../../models';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 
 @Component({
@@ -16,16 +16,36 @@ export class AffidavitOfLossFieldsComponent
 {
   constructor(private fb: FormBuilder) {
     super();
+    this.setFormFields();
   }
 
   ngOnInit(): void {
     this.initForm(
       this.fb.group({
-        location: 'Cebu City',
-        affiantName: '',
-        civilStatus: '',
-        address: '',
+        location: ['', [Validators.required]],
+        affiantName: ['', [Validators.required]],
+        civilStatus: ['', [Validators.required]],
+        address: ['', [Validators.required]],
+        missingDoc: ['', [Validators.required]],
+        referenceNumber: ['', [Validators.required]],
+        approximateDateOfLoss: ['', [Validators.required]],
+        circumstances: ['', [Validators.required]],
+        validId: ['', [Validators.required]],
       })
     );
+  }
+
+  private setFormFields(): void {
+    this.formFields = [
+      { label: 'Location or Notarization', field: 'location' },
+      { label: "Affiant's Name", field: 'affiantName' },
+      { label: 'Civil Status', field: 'civilStatus' },
+      { label: 'Address', field: 'address' },
+      { label: 'Missing ID/Document', field: 'missingDoc' },
+      { label: 'Reference #', field: 'referenceNumber' },
+      { label: 'Approximate Date of Loss', field: 'approximateDateOfLoss' },
+      { label: 'Circumstances', field: 'circumstances' },
+      { label: 'Valid ID', field: 'validId' },
+    ];
   }
 }

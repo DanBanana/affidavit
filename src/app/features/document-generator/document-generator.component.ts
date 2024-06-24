@@ -6,7 +6,7 @@ import {
   ViewChild,
   inject,
 } from '@angular/core';
-import { BgWrapperComponent } from '../../shared/components';
+import { BgWrapperComponent, ButtonComponent } from '../../shared/components';
 import { AppStore } from '../../shared/services';
 import { firstValueFrom } from 'rxjs';
 import { BaseDocGenerator } from './models';
@@ -15,12 +15,14 @@ import {
   AffidavitOfLossComponent,
   AffidavitOfLossFieldsComponent,
 } from './components';
+import { FormControlStatus } from '@angular/forms';
 
 @Component({
   selector: 'app-document-generator',
   standalone: true,
   imports: [
     BgWrapperComponent,
+    ButtonComponent,
     AffidavitOfLossComponent,
     AffidavitOfLossFieldsComponent,
   ],
@@ -34,6 +36,10 @@ export class DocumentGeneratorComponent {
   private readonly store = inject(AppStore);
   private readonly generatorStore = inject(DocumentGeneratorStore);
   private pageWith!: number;
+
+  get buttonDisabled(): boolean {
+    return this.generatorStore.formStatus!() !== 'VALID';
+  }
 
   @ViewChild('view') view!: ElementRef;
   @ViewChild('generator') generator!: BaseDocGenerator;

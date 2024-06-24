@@ -1,38 +1,13 @@
 <form [formGroup]="form">
+  @for (item of formFields; track $index) {
   <mat-form-field appearance="outline">
-    <mat-label>City/Municipality</mat-label>
+    <mat-label>{{ item.label }}</mat-label>
     <input
       matInput
-      formControlName="location"
-      (focus)="setCurrentField('location')"
+      [formControlName]="item.field"
+      (focus)="setCurrentField(item.field)"
       (blur)="setCurrentField()"
     />
   </mat-form-field>
-  <mat-form-field appearance="outline">
-    <mat-label>Name of the Affiant</mat-label>
-    <input
-      matInput
-      formControlName="affiantName"
-      (focus)="setCurrentField('affiantName')"
-      (blur)="setCurrentField()"
-    />
-  </mat-form-field>
-  <mat-form-field appearance="outline">
-    <mat-label>Civil Status</mat-label>
-    <input
-      matInput
-      formControlName="civilStatus"
-      (focus)="setCurrentField('civilStatus')"
-      (blur)="setCurrentField()"
-    />
-  </mat-form-field>
-  <mat-form-field appearance="outline">
-    <mat-label>Address</mat-label>
-    <input
-      matInput
-      formControlName="address"
-      (focus)="setCurrentField('address')"
-      (blur)="setCurrentField()"
-    />
-  </mat-form-field>
+  }
 </form>
