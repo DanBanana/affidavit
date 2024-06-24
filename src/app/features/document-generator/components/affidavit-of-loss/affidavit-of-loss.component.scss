@@ -2,4 +2,28 @@
 
 :host {
   @include document;
+
+  .text-box {
+    width: 100%;
+    height: 55pt;
+    border: 1px solid black;
+    margin-top: 10pt;
+    box-sizing: border-box;
+  }
+
+  .signature {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    height: 60pt;
+    padding-right: 75pt;
+
+    .signature-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+  }
 }

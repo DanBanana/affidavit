@@ -31,6 +31,7 @@ export class AffidavitOfLossFieldsComponent
         approximateDateOfLoss: ['', [Validators.required]],
         circumstances: ['', [Validators.required]],
         validId: ['', [Validators.required]],
+        dateSigned: ['', [Validators.required]],
       })
     );
   }
@@ -46,6 +47,7 @@ export class AffidavitOfLossFieldsComponent
       { label: 'Approximate Date of Loss', field: 'approximateDateOfLoss' },
       { label: 'Circumstances', field: 'circumstances' },
       { label: 'Valid ID', field: 'validId' },
+      { label: 'Date Signed', field: 'dateSigned' },
     ];
   }
 }

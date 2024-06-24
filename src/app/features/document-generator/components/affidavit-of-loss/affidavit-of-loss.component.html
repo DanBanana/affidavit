@@ -5,7 +5,7 @@
     </app-text-spacer>
     &#125;
   </div>
-  <div class="top subtext left">
+  <div class="subtext left">
     <app-text-spacer [width]="135" textAlign="left" field="location">
     </app-text-spacer>
     &#125;&nbsp;s.s.
@@ -23,13 +23,30 @@
   </p>
   <ol>
     <li class="body justify">
-      I am the owner of a ______________ with reference number of
-      ______________.
+      I am the owner of a
+      <app-text-spacer [width]="150" field="missingDoc"></app-text-spacer>
+      with reference number of
+      <app-text-spacer [width]="130" field="referenceNumber"></app-text-spacer>.
     </li>
     <br />
     <li class="body justify">
-      On ______________, I found out that I lost my _________________ based on
-      the situation and circumstances narrated below:
+      On
+      <app-text-spacer
+        [width]="130"
+        field="approximateDateOfLoss"
+      ></app-text-spacer>
+      , I found out that I lost my
+      <app-text-spacer [width]="130" field="missingDoc"></app-text-spacer>
+      based on the situation and circumstances narrated below:
+      <div class="text-box">
+        <app-text-spacer
+          fullWidth
+          fullHeight
+          wrapText
+          textAlign="left"
+          field="circumstances"
+        ></app-text-spacer>
+      </div>
     </li>
     <br />
     <li class="body justify">
@@ -44,7 +61,31 @@
   </ol>
   <p class="body justify">
     <app-text-spacer [width]="25"></app-text-spacer> IN WITNESS WHEREOF, I
-    hereby affix my signature on ________________________ at Quezon City,
+    hereby affix my signature on
+    <app-text-spacer [width]="100" field="dateSigned"></app-text-spacer> at
+    <app-text-spacer [width]="100" field="location"></app-text-spacer>,
     Philippines.
   </p>
+  <div class="signature">
+    <div class="signature-content">
+      <span class="subheader center">
+        <app-text-spacer [width]="175" field="affiantName"></app-text-spacer>
+      </span>
+      <span>Affiant</span>
+    </div>
+  </div>
+  <p class="body justify">
+    <app-text-spacer [width]="25"></app-text-spacer>
+    SUBSCRIBED AND SWORN to before me in the date and place stated above, after
+    the affiant avowed under penalty of law to the whole truth of the contents
+    thereof and thereafter exhibited to me his/her
+    <app-text-spacer [width]="130" field="validId"></app-text-spacer> as
+    competent evidence of identity.
+  </p>
+  <div class="subtext left">
+    Doc. No. _____ <br />
+    Page No. _____ <br />
+    Book No. _____ <br />
+    Series of _____ <br />
+  </div>
 </app-document-wrapper>
