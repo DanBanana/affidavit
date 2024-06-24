@@ -10,6 +10,9 @@ import { DocumentGeneratorStore } from '../../document-generator-store';
   styleUrl: './text-spacer.component.scss',
 })
 export class TextSpacerComponent {
+  private _fullWidth = false;
+  private _fullHeight = false;
+  private _wrapText = false;
   private readonly store = inject(DocumentGeneratorStore);
 
   get dataSource(): any {
@@ -22,6 +25,30 @@ export class TextSpacerComponent {
 
   get isSelected(): boolean {
     return this.field === this.store.currentField!();
+  }
+
+  @Input()
+  set fullWidth(value: boolean | string) {
+    this._fullWidth = value !== null && `${value}` !== 'false';
+  }
+  get fullWidth(): boolean {
+    return this._fullWidth;
+  }
+
+  @Input()
+  set fullHeight(value: boolean | string) {
+    this._fullHeight = value !== null && `${value}` !== 'false';
+  }
+  get fullHeight(): boolean {
+    return this._fullHeight;
+  }
+
+  @Input()
+  set wrapText(value: boolean | string) {
+    this._wrapText = value !== null && `${value}` !== 'false';
+  }
+  get wrapText(): boolean {
+    return this._wrapText;
   }
 
   @Input() width!: number;

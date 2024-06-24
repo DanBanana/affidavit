@@ -4,9 +4,22 @@
 :host {
   @include document;
 
+  .wrap-text {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
   .isSelected {
     border: 1px solid $primary-color;
     box-sizing: border-box;
-    border-radius: 5px;
+  }
+
+  .fullWidth {
+    width: 100%;
+  }
+
+  .fullHeight {
+    height: 100%;
   }
 }

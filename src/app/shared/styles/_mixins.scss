@@ -49,6 +49,12 @@
 @mixin document {
   .header {
     font-size: 20pt;
+    font-weight: 600;
+  }
+
+  .subheader {
+    font-size: 15pt;
+    font-weight: 600;
   }
 
   .body {

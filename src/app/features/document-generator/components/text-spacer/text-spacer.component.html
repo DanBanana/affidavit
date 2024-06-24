@@ -1,7 +1,12 @@
 <span
   class="inline-block"
   [style.text-align]="textAlign"
-  [ngClass]="{ isSelected: isSelected }"
+  [ngClass]="{
+    isSelected: isSelected,
+    fullWidth: fullWidth,
+    fullHeight: fullHeight,
+    'wrap-text': wrapText,
+  }"
   [style.width.pt]="width"
 >
   @if (field !== "empty") {
