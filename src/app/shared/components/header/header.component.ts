@@ -57,6 +57,10 @@ export class HeaderComponent {
     this.nav.navigateToLogin();
   }
 
+  navigateToDocumentGenerator(): void {
+    this.nav.navigateToDocumentGenerator();
+  }
+
   async signOut(): Promise<void> {
     try {
       await this.auth.signOut();

@@ -8,6 +8,7 @@ import {
 import { LandingFormComponent } from './landing-form/landing-form.component';
 import { IconType } from '../../shared/models/enums';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { NavigationService } from '../../shared/services';
 
 @Component({
   selector: 'app-landing-page',
@@ -26,5 +27,15 @@ import { MatExpansionModule } from '@angular/material/expansion';
 export class LandingPageComponent {
   get iconTypes(): typeof IconType {
     return IconType;
+  }
+
+  constructor(private nav: NavigationService) {}
+
+  navigateToDocumentGenerator(): void {
+    this.nav.navigateToDocumentGenerator();
+  }
+
+  navigateToSetAppoinment(): void {
+    this.nav.navigateToSetAppoinment();
   }
 }

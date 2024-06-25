@@ -3,7 +3,7 @@
 <div class="actions">
   @if (!isLoggedIn) {
   <app-button secondary (click)="navigateToLogin()"> Login </app-button>
-  <app-button>
+  <app-button (click)="navigateToDocumentGenerator()">
     <span>Get Started</span>
     <app-icon [icon]="iconTypes.RIGHT_ARROW"></app-icon>
   </app-button>

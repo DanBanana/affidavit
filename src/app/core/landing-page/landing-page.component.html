@@ -12,11 +12,13 @@
         omnis dolor, nesciunt eligendi ipsam.
       </div>
       <div class="actions">
-        <app-button>
+        <app-button (click)="navigateToDocumentGenerator()">
           Get Started
           <app-icon [icon]="iconTypes.RIGHT_ARROW"></app-icon>
         </app-button>
-        <app-button secondary>Learn More</app-button>
+        <app-button secondary (click)="navigateToSetAppoinment()"
+          >Learn More</app-button
+        >
       </div>
     </div>
     <div class="info">
@@ -62,7 +64,7 @@
       through the cracks of our urban-rural divide.
     </span>
     <div class="actions">
-      <app-button>
+      <app-button (click)="navigateToDocumentGenerator()">
         Get Started
         <app-icon [icon]="iconTypes.RIGHT_ARROW"></app-icon>
       </app-button>
@@ -163,7 +165,7 @@
       way to legal processes.
     </span>
     <div class="actions">
-      <app-button darkBg>
+      <app-button darkBg (click)="navigateToDocumentGenerator()">
         Get Started
         <app-icon [icon]="iconTypes.RIGHT_ARROW"></app-icon>
       </app-button>
@@ -232,7 +234,7 @@
     way to legal processes.
   </span>
   <div class="actions">
-    <app-button darkBg>
+    <app-button darkBg (click)="navigateToDocumentGenerator()">
       Get Started
       <app-icon [icon]="iconTypes.RIGHT_ARROW"></app-icon>
     </app-button>

@@ -20,4 +20,8 @@ export class NavigationService {
   navigateToDocumentGenerator(): void {
     this.router.navigateByUrl('document-generator');
   }
+
+  navigateToSetAppoinment(): void {
+    this.router.navigateByUrl('set-appointment');
+  }
 }
