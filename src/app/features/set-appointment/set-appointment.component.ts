@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { BgWrapperComponent } from '../../shared/components';
+import { BgWrapperComponent, CalendarComponent } from '../../shared/components';
 
 @Component({
   selector: 'app-set-appointment',
   standalone: true,
-  imports: [BgWrapperComponent],
+  imports: [BgWrapperComponent, CalendarComponent],
   templateUrl: './set-appointment.component.html',
   styleUrl: './set-appointment.component.scss',
 })
