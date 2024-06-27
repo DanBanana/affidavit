@@ -1,27 +1,24 @@
 import { Injectable, inject } from '@angular/core';
 import { dbUrl } from '../../../environments/environment';
+import { Collections } from '../models/enums';
 import { User } from '../models/interfaces';
 import {
   Firestore,
-  collection,
   onSnapshot,
   DocumentSnapshot,
   setDoc,
   doc,
   Unsubscribe,
   runTransaction,
+  QuerySnapshot,
 } from '@angular/fire/firestore';
+import { CollectionsService } from './collections.service';
 
 @Injectable({ providedIn: 'root' })
 export class DatabaseService {
   private readonly firestore = inject(Firestore);
 
-  private readonly usersCollection = collection(
-    this.firestore,
-    `${dbUrl}/users`
-  );
-
-  constructor() {}
+  constructor(private col: CollectionsService) {}
 
   async createUser(id: string, user: Partial<User>): Promise<void> {
     try {
@@ -53,6 +50,12 @@ export class DatabaseService {
     id: string,
     callback: (doc: DocumentSnapshot) => unknown
   ): Unsubscribe {
-    return onSnapshot(doc(this.usersCollection, id), callback);
+    return onSnapshot(doc(this.col.getCol(Collections.USERS), id), callback);
+  }
+
+  onBookingsSnapshot(
+    callback: (querySnapshot: QuerySnapshot) => unknown
+  ): Unsubscribe {
+    return onSnapshot(this.col.getCol(Collections.BOOKINGS), callback);
   }
 }
