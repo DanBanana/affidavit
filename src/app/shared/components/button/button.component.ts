@@ -41,7 +41,8 @@ export class ButtonComponent {
 
   constructor() {}
 
-  onClick(): void {
+  onClick(event: Event): void {
+    event.stopPropagation();
     if (this.disabled) return;
     this.click.emit();
   }
