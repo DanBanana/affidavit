@@ -4,4 +4,4 @@ export * from './login-credentials';
 export * from './user';
 export * from './lawyer';
 export * from './lawyer-time-slot';
-export * from './bookings';
+export * from './booking';

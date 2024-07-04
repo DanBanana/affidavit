@@ -62,16 +62,17 @@ export class BookingsService {
   ): CalendarEvent {
     const start = this.setHourForTheDay(new Date(eventDate), lawyerSlot.start);
     const end = this.setHourForTheDay(new Date(eventDate), lawyerSlot.end);
-    const booked = this.findBookedSlot(bookedSlots, start, end);
-    const title = booked
+    const booking = this.findBookedSlot(bookedSlots, start, end);
+    const title = booking
       ? 'Unavailable'
       : `${this.getHours(start)} to ${this.getHours(end)}`;
     const color = {
       primary: '#FFFFFF',
-      secondary: booked ? '#D62828' : '#007ac3',
+      secondary: booking ? '#E57678' : '#91C45A',
     };
+    const meta = { unavailable: !!booking };
 
-    return { start, end, title, color };
+    return { start, end, title, color, meta };
   }
 
   private setHourForTheDay(date: Date, hour: number): Date {
@@ -123,6 +124,6 @@ export class BookingsService {
   // }
 
   private getHours(date: Date): string {
-    return this.datePipe.transform(date, 'HH:mm')!;
+    return this.datePipe.transform(date, 'h:mm a')!;
   }
 }

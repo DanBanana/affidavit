@@ -14,15 +14,16 @@ import {
   query,
   where,
   Timestamp,
+  addDoc,
+  collection,
 } from '@angular/fire/firestore';
-import { CollectionsService } from './collections.service';
 
 @Injectable({ providedIn: 'root' })
 export class DatabaseService {
   private readonly todayTimestamp;
   private readonly firestore = inject(Firestore);
 
-  constructor(private col: CollectionsService) {
+  constructor() {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     this.todayTimestamp = today;
@@ -58,12 +59,15 @@ export class DatabaseService {
     id: string,
     callback: (doc: DocumentSnapshot) => unknown
   ): Unsubscribe {
-    return onSnapshot(doc(this.col.getCol(Collections.USERS), id), callback);
+    return onSnapshot(
+      doc(collection(this.firestore, dbUrl, Collections.USERS), id),
+      callback
+    );
   }
 
   onLawyersSnapshot(callback: (lawyers: Lawyer[]) => unknown): Unsubscribe {
     const colQuery = query(
-      this.col.getCol(Collections.USERS),
+      collection(this.firestore, dbUrl, Collections.USERS),
       where('role', '==', UserRole.LAWYER)
     );
     return onSnapshot(colQuery, (querySnapshot) => {
@@ -73,7 +77,7 @@ export class DatabaseService {
 
   onBookingsSnapshot(callback: (bookings: Booking[]) => unknown): Unsubscribe {
     return onSnapshot(
-      this.col.getCol(Collections.BOOKINGS),
+      collection(this.firestore, dbUrl, Collections.BOOKINGS),
       (querySnapshot) => {
         callback(this.queryToObjectHelper<Booking>(querySnapshot));
       }
@@ -85,13 +89,20 @@ export class DatabaseService {
     callback: (bookings: Booking[]) => unknown
   ): Unsubscribe {
     const colQuery = query(
-      this.col.getCol(Collections.BOOKINGS),
+      collection(this.firestore, dbUrl, Collections.BOOKINGS),
       where('lawyer', '==', lawyer),
       where('start', '>=', this.todayTimestamp)
     );
     return onSnapshot(colQuery, (querySnapshot) => {
       callback(this.queryToObjectHelper<Booking>(querySnapshot));
     });
+  }
+
+  async createBooking(booking: Partial<Booking>): Promise<void> {
+    await addDoc(
+      collection(this.firestore, dbUrl, Collections.BOOKINGS),
+      booking
+    );
   }
 
   private queryToObjectHelper<T>(querySnapshot: QuerySnapshot): T[] {

@@ -1,10 +1,12 @@
 import {
   Component,
   EffectRef,
+  EventEmitter,
   Injector,
   Input,
   OnDestroy,
   OnInit,
+  Output,
   effect,
 } from '@angular/core';
 import { CalendarEvent, CalendarModule, CalendarView } from 'angular-calendar';
@@ -17,7 +19,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { CalendarViewConfig } from '../../models/enums';
-import { User } from '../../models/interfaces';
+import { Lawyer, User } from '../../models/interfaces';
 import { MatSelectModule } from '@angular/material/select';
 import { BookingsService, LawyersService } from './services';
 import { Unsubscribe } from '@angular/fire/auth';
@@ -55,8 +57,11 @@ export class CalendarComponent implements OnInit, OnDestroy {
   get showViewModes(): boolean {
     return this.viewConfig !== CalendarViewConfig.BOOKING;
   }
-  get lawyers(): User[] {
+  get lawyers(): Lawyer[] {
     return this.lawyersSvc.lawyers();
+  }
+  get currLawyer(): Lawyer | null {
+    return this.lawyersSvc.currLawyer();
   }
   get lawyersFormControl(): FormControl {
     return this.lawyersSvc.form;
@@ -66,6 +71,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
   }
 
   @Input() viewConfig!: CalendarViewConfig;
+  @Output() eventClicked = new EventEmitter<unknown>();
   constructor(
     private injector: Injector,
     private bookingsSvc: BookingsService,
@@ -88,6 +94,11 @@ export class CalendarComponent implements OnInit, OnDestroy {
     this.getBookingsByLawyerEffect?.destroy();
   }
 
+  onEventClicked(event: CalendarEvent): void {
+    if (event.meta.unavailable) return;
+    this.eventClicked.emit({ event, lawyer: this.currLawyer });
+  }
+
   private getBookings(): Unsubscribe | void {
     if (this.viewConfig === CalendarViewConfig.VIEWING) {
       return this.bookingsSvc.getBookings();
@@ -96,10 +107,10 @@ export class CalendarComponent implements OnInit, OnDestroy {
       () => {
         if (!this.lawyersSvc.currLawyer()?.id) return;
         const unsub = this.unsubMap.get('getBookingsByLawyer');
-        const callback = () =>
-          this.bookingsSvc.getBookingsByLawyer(this.lawyersSvc.currLawyer()!);
         if (unsub) unsub();
-        this.unsubMap.set('getBookingsByLawyer', callback());
+        this.unsubMap.set('getBookingsByLawyer', () => {
+          this.bookingsSvc.getBookingsByLawyer(this.lawyersSvc.currLawyer()!);
+        });
       },
       { injector: this.injector }
     );

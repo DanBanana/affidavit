@@ -1,5 +1,8 @@
 <app-bg-wrapper>
   <div class="content-wrapper">
-    <app-calendar [viewConfig]="calendarViewConfig.BOOKING"></app-calendar>
+    <app-calendar
+      [viewConfig]="calendarViewConfig.BOOKING"
+      (eventClicked)="onEventClicked($event)"
+    ></app-calendar>
   </div>
 </app-bg-wrapper>
