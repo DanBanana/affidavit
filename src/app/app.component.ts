@@ -3,11 +3,13 @@ import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './shared/components';
 import { AppStore, AuthService } from './shared/services';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet, HeaderComponent, MatProgressSpinnerModule],
+  providers: [DatePipe],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })

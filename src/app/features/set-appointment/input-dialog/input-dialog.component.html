@@ -1,0 +1,9 @@
+<form class="content" [formGroup]="form">
+  <mat-form-field appearance="outline">
+    <mat-label>Guest's full name</mat-label>
+    <input matInput formControlName="name" />
+  </mat-form-field>
+</form>
+<div class="actions">
+  <app-button (click)="onClick()" [disabled]="form.invalid">Submit</app-button>
+</div>
