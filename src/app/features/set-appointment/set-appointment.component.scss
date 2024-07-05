@@ -1,9 +1,8 @@
 @import "../../shared/styles/variables";
+@import "../../shared/styles/mixins";
 
 .content-wrapper {
-  width: 100vw;
-  min-height: $content-height;
-  padding: 1rem $left-right-space;
-  box-sizing: border-box;
+  @include page-base-with-padding;
+
   display: grid;
 }

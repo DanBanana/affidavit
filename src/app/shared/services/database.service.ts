@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { dbUrl } from '../../../environments/environment';
 import { Collections, UserRole } from '../models/enums';
-import { Booking, Lawyer, User } from '../models/interfaces';
+import { Booking, Lawyer, Rating, User } from '../models/interfaces';
 import {
   Firestore,
   onSnapshot,
@@ -16,6 +16,8 @@ import {
   Timestamp,
   addDoc,
   collection,
+  writeBatch,
+  Transaction,
 } from '@angular/fire/firestore';
 
 @Injectable({ providedIn: 'root' })
@@ -55,13 +57,12 @@ export class DatabaseService {
     }
   }
 
-  onUserSnapshot(
-    id: string,
-    callback: (doc: DocumentSnapshot) => unknown
-  ): Unsubscribe {
+  onUserSnapshot(id: string, callback: (user: User) => unknown): Unsubscribe {
     return onSnapshot(
-      doc(collection(this.firestore, dbUrl, Collections.USERS), id),
-      callback
+      doc(this.firestore, dbUrl, Collections.USERS, id),
+      (docSnapshot) => {
+        callback(Helper.docToObject<User>(docSnapshot));
+      }
     );
   }
 
@@ -71,15 +72,25 @@ export class DatabaseService {
       where('role', '==', UserRole.LAWYER)
     );
     return onSnapshot(colQuery, (querySnapshot) => {
-      callback(this.queryToObjectHelper<Lawyer>(querySnapshot));
+      callback(Helper.queryToObject<Lawyer>(querySnapshot));
     });
+  }
+
+  onBookingSnapshot(
+    id: string,
+    callback: (booking: Booking) => unknown
+  ): Unsubscribe {
+    return onSnapshot(
+      doc(this.firestore, dbUrl, Collections.BOOKINGS, id),
+      (docSnapshot) => callback(Helper.docToObject<Booking>(docSnapshot))
+    );
   }
 
   onBookingsSnapshot(callback: (bookings: Booking[]) => unknown): Unsubscribe {
     return onSnapshot(
       collection(this.firestore, dbUrl, Collections.BOOKINGS),
       (querySnapshot) => {
-        callback(this.queryToObjectHelper<Booking>(querySnapshot));
+        callback(Helper.queryToObject<Booking>(querySnapshot));
       }
     );
   }
@@ -94,7 +105,7 @@ export class DatabaseService {
       where('start', '>=', this.todayTimestamp)
     );
     return onSnapshot(colQuery, (querySnapshot) => {
-      callback(this.queryToObjectHelper<Booking>(querySnapshot));
+      callback(Helper.queryToObject<Booking>(querySnapshot));
     });
   }
 
@@ -105,20 +116,69 @@ export class DatabaseService {
     );
   }
 
-  private queryToObjectHelper<T>(querySnapshot: QuerySnapshot): T[] {
-    const convertTimestamps = (obj: any) => {
-      for (let key in obj) {
-        if (obj[key] instanceof Timestamp) {
-          obj[key] = (obj[key] as Timestamp).toDate();
-        } else if (typeof obj[key] === 'object' && obj[key] !== null) {
-          convertTimestamps(obj[key]);
-        }
+  async createRating(
+    rating: Partial<Rating>,
+    bookingId: string
+  ): Promise<void> {
+    try {
+      await runTransaction(this.firestore, async (transaction) => {
+        await this.updateLawyerRating(transaction, rating);
+
+        // Create new rating document.
+        transaction.set(
+          doc(collection(this.firestore, dbUrl, Collections.RATINGS)),
+          rating
+        );
+
+        // Set booking's `hasRating` field to true;
+        transaction.update(
+          doc(this.firestore, dbUrl, Collections.BOOKINGS, bookingId),
+          { hasRating: true }
+        );
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  private async updateLawyerRating(
+    transaction: Transaction,
+    rating: Partial<Rating>
+  ): Promise<void> {
+    const lawyer = await transaction.get(
+      doc(this.firestore, dbUrl, Collections.USERS, rating.lawyer!)
+    );
+    const lawyerRatings = lawyer.data()!['ratings'];
+    const ratings = lawyerRatings
+      ? [...lawyerRatings, ...[rating.stars]]
+      : [rating.stars];
+    const averageRating =
+      ratings.reduce((acc, curr) => acc + curr, 0) / ratings.length;
+    transaction.update(
+      doc(this.firestore, dbUrl, Collections.USERS, rating.lawyer!),
+      { ratings, averageRating }
+    );
+  }
+}
+
+class Helper {
+  static docToObject<T>(docSnapshot: DocumentSnapshot): T {
+    const data = docSnapshot.data();
+    this.convertTimestamps(data);
+    return { ...data, id: docSnapshot.id } as T;
+  }
+
+  static queryToObject<T>(querySnapshot: QuerySnapshot): T[] {
+    return querySnapshot.docs.map((item) => this.docToObject<T>(item));
+  }
+
+  private static convertTimestamps(obj: any): void {
+    for (let key in obj) {
+      if (obj[key] instanceof Timestamp) {
+        obj[key] = (obj[key] as Timestamp).toDate();
+      } else if (typeof obj[key] === 'object' && obj[key] !== null) {
+        this.convertTimestamps(obj[key]);
       }
-    };
-    return querySnapshot.docs.map((item) => {
-      const data = item.data();
-      convertTimestamps(data);
-      return { ...data, id: item.id } as T;
-    });
+    }
   }
 }

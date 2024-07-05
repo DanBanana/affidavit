@@ -4,12 +4,14 @@ import { LandingPageComponent } from './core/landing-page/landing-page.component
 import { documentGeneratorRoutes } from './features/document-generator/document-generator.routes';
 import { setAppointmentRoutes } from './features/set-appointment/set-appointment.routes';
 import { NotFoundComponent } from './shared/components/not-found/not-found.component';
+import { appointmentRoutes } from './features/appointment/appointment.routes';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', title: 'Affidavit', component: LandingPageComponent },
   ...documentGeneratorRoutes,
   ...setAppointmentRoutes,
+  ...appointmentRoutes,
   ...authRoutes,
   { path: 'not-found', title: 'Not Found', component: NotFoundComponent },
   { path: '**', redirectTo: 'not-found', pathMatch: 'full' },

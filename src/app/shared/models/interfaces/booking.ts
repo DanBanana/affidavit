@@ -1,8 +1,9 @@
 export interface Booking {
-  id: string ;
+  id: string;
   guest: string;
   lawyer: string;
   start: Date;
   end: Date;
-  isLoggedIn?: boolean | null;
+  isLoggedIn: boolean;
+  hasRating: boolean;
 }

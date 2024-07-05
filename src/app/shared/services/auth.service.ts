@@ -30,18 +30,15 @@ export class AuthService {
     onAuthStateChanged(this.auth, (user) => {
       this.setGlobalLoading(true);
       if (this.userDocUnsub) this.userDocUnsub();
-      if (user == null || user == undefined) return this.setGlobalLoading(false);
-      this.userDocUnsub = this.db.onUserSnapshot(user?.uid, (doc) => {
+      if (user == null || user == undefined)
+        return this.setGlobalLoading(false);
+      this.userDocUnsub = this.db.onUserSnapshot(user?.uid, (docData) => {
         this.setGlobalLoading(false);
-        if (!doc.exists()) return;
-        const docData = doc.data()!;
+        if (!docData) return;
         this.setUser({
+          ...docData,
           id: user?.uid!,
           email: user?.email!,
-          displayName: docData['displayName'],
-          fname: docData['fname'],
-          lname: docData['lname'],
-          role: docData['role'],
         });
       });
     });

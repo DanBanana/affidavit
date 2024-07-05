@@ -1,0 +1,31 @@
+@import "../../shared/styles/variables";
+@import "../../shared/styles/mixins";
+
+.content-wrapper {
+  @include page-base-with-padding;
+
+  display: flex;
+  flex-direction: column;
+
+  .sections {
+    width: 75%;
+    display: flex;
+    gap: 1rem;
+
+    .section {
+      flex: 1 0 auto;
+      display: flex;
+      flex-direction: column;
+
+      .header {
+        font-size: 1rem;
+        font-weight: 600;
+        margin: 0.5rem 0;
+      }
+    }
+  }
+
+  .rating {
+    margin-top: 5rem;
+  }
+}

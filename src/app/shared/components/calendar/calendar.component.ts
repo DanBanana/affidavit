@@ -19,10 +19,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { CalendarViewConfig } from '../../models/enums';
-import { Lawyer, User } from '../../models/interfaces';
+import { Lawyer } from '../../models/interfaces';
 import { MatSelectModule } from '@angular/material/select';
 import { BookingsService, LawyersService } from './services';
 import { Unsubscribe } from '@angular/fire/auth';
+import { UnsubscribeHelperService } from '../../services';
+import { RoundToFirstDecimalPipe } from '../../directives';
 
 @Component({
   selector: 'app-calendar',
@@ -39,8 +41,9 @@ import { Unsubscribe } from '@angular/fire/auth';
     MatIconModule,
     MatSelectModule,
     ReactiveFormsModule,
+    RoundToFirstDecimalPipe,
   ],
-  providers: [BookingsService, LawyersService],
+  providers: [BookingsService, LawyersService, UnsubscribeHelperService],
   templateUrl: './calendar.component.html',
   styleUrl: './calendar.component.scss',
 })
@@ -48,7 +51,6 @@ export class CalendarComponent implements OnInit, OnDestroy {
   viewMode: CalendarView = CalendarView.Month;
   viewDate = new Date();
 
-  private unsubMap = new Map<string, Unsubscribe | void>();
   private getBookingsByLawyerEffect?: EffectRef;
 
   get calendarView(): typeof CalendarView {
@@ -75,21 +77,19 @@ export class CalendarComponent implements OnInit, OnDestroy {
   constructor(
     private injector: Injector,
     private bookingsSvc: BookingsService,
-    private lawyersSvc: LawyersService
+    private lawyersSvc: LawyersService,
+    private unsubHelper: UnsubscribeHelperService
   ) {}
 
   ngOnInit(): void {
     this.setConfig();
-    this.unsubMap.set('getBookings', this.getBookings());
+    this.unsubHelper.set('getBookings', this.getBookings());
     this.lawyersSvc.getLawyers(this.viewConfig);
   }
 
   ngOnDestroy(): void {
     this.lawyersSvc.unsub.next();
-
-    Array.from(this.unsubMap.values()).forEach((unsub) => {
-      if (unsub) unsub();
-    });
+    this.unsubHelper.clearAll();
 
     this.getBookingsByLawyerEffect?.destroy();
   }
@@ -106,9 +106,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
     this.getBookingsByLawyerEffect = effect(
       () => {
         if (!this.lawyersSvc.currLawyer()?.id) return;
-        const unsub = this.unsubMap.get('getBookingsByLawyer');
-        if (unsub) unsub();
-        this.unsubMap.set('getBookingsByLawyer', () => {
+        this.unsubHelper.set('getBookingsByLawyer', () => {
           this.bookingsSvc.getBookingsByLawyer(this.lawyersSvc.currLawyer()!);
         });
       },

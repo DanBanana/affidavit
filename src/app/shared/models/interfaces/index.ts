@@ -5,3 +5,4 @@ export * from './user';
 export * from './lawyer';
 export * from './lawyer-time-slot';
 export * from './booking';
+export * from './rating';

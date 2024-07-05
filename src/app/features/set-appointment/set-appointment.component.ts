@@ -30,11 +30,15 @@ export class SetAppointmentComponent {
     event: { start, end },
     lawyer: { id },
   }: any): Promise<void> {
-    const user = this.store.user();
-    if (!(await this.confirmation())) return;
-    const guest = user ? user.id : await this.getName();
-    const isLoggedIn = !!user;
-    this.db.createBooking({ lawyer: id, start, end, guest, isLoggedIn });
+    try {
+      const user = this.store.user();
+      if (!(await this.confirmation())) return;
+      const guest = user ? user.id : await this.getName();
+      const isLoggedIn = !!user;
+      this.db.createBooking({ lawyer: id, start, end, guest, isLoggedIn });
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   private async confirmation(): Promise<boolean> {

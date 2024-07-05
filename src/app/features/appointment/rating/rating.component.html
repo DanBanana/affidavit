@@ -1,0 +1,16 @@
+<h3>Hello, {{ guestName }}!</h3>
+<span>
+  Please let us know about your experience. Your comments will help us improve.
+</span>
+<form [formGroup]="form">
+  <mat-form-field appearance="outline">
+    <mat-label>Comments</mat-label>
+    <textarea matInput formControlName="comment"></textarea>
+  </mat-form-field>
+  <mat-slider min="1" max="5" step="1" showTickMarks discrete>
+    <input matSliderThumb formControlName="stars" />
+  </mat-slider>
+  <app-button type="submit" (click)="onSubmit()" [disabled]="form.invalid">
+    Submit
+  </app-button>
+</form>

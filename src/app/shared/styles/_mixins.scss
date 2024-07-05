@@ -27,6 +27,13 @@
   box-sizing: border-box;
 }
 
+@mixin page-base-with-padding {
+  width: 100vw;
+  min-height: $content-height;
+  padding: 1rem $left-right-space;
+  box-sizing: border-box;
+}
+
 @mixin emphasized {
   display: grid;
   padding: 1rem;

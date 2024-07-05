@@ -3,4 +3,6 @@ import { User } from './user';
 
 export interface Lawyer extends User {
   timeSlots: LawyerTimeSlot[];
+  ratings: number[];
+  averageRating: number;
 }

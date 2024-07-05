@@ -1,0 +1,34 @@
+<app-bg-wrapper>
+  <div class="content-wrapper">
+    @if (booking) {
+    <h2>Appointment</h2>
+    <div class="sections">
+      <div class="section">
+        <span class="header">Lawyer:</span>
+        <span>{{ lawyer?.fname }} {{ lawyer?.lname }}</span>
+      </div>
+      <div class="section">
+        <span class="header">Guest:</span>
+        <span>{{ guestName }}</span>
+      </div>
+      <div class="section">
+        <span class="header">Schedule:</span>
+        <span>
+          {{ booking.start | date : "MMMM d, yyyy" }}
+          {{ booking.start | date : "h:mm a" }} to
+          {{ booking.end | date : "h:mm a" }}
+        </span>
+      </div>
+    </div>
+    @if(showRatingForm) {
+    <app-rating
+      class="rating"
+      [lawyer]="lawyer!"
+      [guestName]="guestName"
+      [bookingId]="booking.id"
+    ></app-rating>
+    } } @else {
+    <div>Cannot view appointment.</div>
+    }
+  </div>
+</app-bg-wrapper>
